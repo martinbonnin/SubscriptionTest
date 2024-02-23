@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("com.apollographql.apollo3")
 }
 
 android {
@@ -51,7 +50,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -60,7 +58,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation("com.apollographql.apollo3:apollo-runtime")
+    implementation(project(":shared"))
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -71,12 +69,3 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 }
 
-apollo {
-    service("service") {
-        packageName.set("subscription.test")
-        introspection {
-            schemaFile.set(file("src/main/graphql/schema.graphqls"))
-            endpointUrl.set("https://leonidas-naiwjdzjsq-od.a.run.app/graphql")
-        }
-    }
-}

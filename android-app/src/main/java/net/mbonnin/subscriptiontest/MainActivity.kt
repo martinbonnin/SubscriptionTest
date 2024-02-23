@@ -13,11 +13,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.apollographql.apollo3.ApolloClient
-import com.apollographql.apollo3.network.ws.WebSocketNetworkTransport
-import kotlinx.coroutines.delay
 import net.mbonnin.subscriptiontest.ui.theme.SubscriptionTestTheme
-import subscription.test.GetTimeSubscription
+import subscriptiontest.currentTime
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,23 +35,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
-    val flow = remember {
-        ApolloClient.Builder()
-            .serverUrl("https://leonidas-naiwjdzjsq-od.a.run.app/graphql")
-            .subscriptionNetworkTransport(
-                WebSocketNetworkTransport.Builder()
-                    .serverUrl("https://leonidas-naiwjdzjsq-od.a.run.app/subscription")
-                    .reopenWhen { throwable, attempt ->
-                        println("Reopening...")
-                        delay(2000)
-                        true
-                    }
-                    .build()
-            )
-            .build()
-            .subscription(GetTimeSubscription())
-            .toFlow()
-    }
+    val flow = remember { currentTime() }
 
     val state = flow.collectAsStateWithLifecycle(initialValue = null)
 

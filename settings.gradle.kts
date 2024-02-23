@@ -12,7 +12,8 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    // See https://youtrack.jetbrains.com/issue/KT-58272
+    //repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
@@ -20,5 +21,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "SubscriptionTest"
-include(":app")
- 
+include(":android-app")
+include(":shared")
