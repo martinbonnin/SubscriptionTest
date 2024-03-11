@@ -26,5 +26,6 @@ kotlin {
 
     sourceSets.getByName("commonMain").dependencies {
         api("com.apollographql.apollo3:apollo-runtime")
+        api("com.apollographql.apollo3:apollo-websocket-network-transport-incubating")
     }
 }
